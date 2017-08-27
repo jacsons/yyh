@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<context:property-placeholder order="999" location="config/DBConfig.properties" />-->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:DBConfig.properties" />
+    </bean>
+
+    <!--c3p0主要配置-->
+    <bean id="comboPooledConfig" class="yyh.dbservice.com.db.yyh.munia.model.ComboPooledConfig">
+        <!-- 指定连接数据库的JDBC驱动 -->
+        <property name="driverClass">
+            <value>${driverClass}</value>
+        </property>
+        <!-- 连接数据库所用的URL -->
+        <property name="jdbcUrl">
+            <value>${jdbcUrl}</value>
+        </property>
+        <!-- 连接数据库的用户名 -->
+        <property name="user">
+            <value>${user}</value>
+        </property>
+        <!-- 连接数据库的密码 -->
+        <property name="password">
+            <value>${password}</value>
+        </property>
+        <!-- 设置数据库连接池的最大连接数 -->
+        <property name="maxPoolSize">
+            <value>${maxPoolSize}</value>
+        </property>
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdleTime">
+            <value>${minPoolSize}</value>
+        </property>
+        <!-- 初始化连接大小 -->
+        <property name="initialPoolSize">
+            <value>${initialPoolSize}</value>
+        </property>
+        <!-- 最大等待时间 -->
+        <property name="maxWaitTime">
+            <value>${maxIdleTime}</value>
+        </property>
+    </bean>
+
+
+    <!--管理c3p0的函数-->
+    <bean id="sessionManager" class="yyh.dbservice.com.db.DataSourceFactory" init-method="timeSchedule">
+        <property name="comboPooledConfig" ref="comboPooledConfig" />
+    </bean>
+
+    <!--管理项目id的类-->
+    <bean id="projectmgr" class="yyh.dbservice.com.db.ProjectSourceDBMgr">
+
+    </bean>
+
+    <!--继承spring的一个接口给spring使用的类-->
+    <bean id="dataSource" class="yyh.dbservice.com.db.DynamicDataSource">
+        <property name="projectMgr" ref="projectmgr" />
+        <property name="sessionManager" ref="sessionManager" />
+    </bean>
+
+    <!-- 配置spring的数据管理实例类-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+
+    <!-- 创建升级数据库使用的类 -->
+    <bean id="dbInit" class="yyh.dbservice.com.db.DBInit">
+
+    </bean>
+</beans>

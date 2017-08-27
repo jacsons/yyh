@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-body>
+    <pools>
+        <pool name="fileRedis">
+            <host>127.0.0.1</host>
+            <port>6379</port>
+            <maxTotal>100</maxTotal>
+            <maxIdle>10</maxIdle>
+            <minIdle>6</minIdle>
+            <testOnCreate>true</testOnCreate>
+            <testOnBorrow>true</testOnBorrow>
+            <testOnReturn>true</testOnReturn>
+            <testWhileIdle>true</testWhileIdle>
+            <maxWaitMillis>1000</maxWaitMillis>
+            <fairness>true</fairness>
+            <minEvictableIdleTimeMillis>1000</minEvictableIdleTimeMillis>
+            <softMinEvictableIdleTimeMillis>1000</softMinEvictableIdleTimeMillis>
+            <numTestsPerEvictionRun>100</numTestsPerEvictionRun>
+            <!--<evictionPolicyClassName>string12</evictionPolicyClassName>  -->
+            <timeBetweenEvictionRunsMillis>1000</timeBetweenEvictionRunsMillis>
+            <blockWhenExhausted>true</blockWhenExhausted>
+            <lifo>true</lifo>
+            <jmxEnabled>true</jmxEnabled>
+            <jmxNamePrefix>string</jmxNamePrefix>
+            <jmxNameBase>string</jmxNameBase>
+        </pool>
+        <pool name="detailRedis">
+            <host>127.0.0.1</host>
+            <port>6379</port>
+            <maxTotal>100</maxTotal>
+            <maxIdle>10</maxIdle>
+            <minIdle>6</minIdle>
+            <testOnCreate>true</testOnCreate>
+            <testOnBorrow>true</testOnBorrow>
+            <testOnReturn>true</testOnReturn>
+            <testWhileIdle>true</testWhileIdle>
+            <maxWaitMillis>1000</maxWaitMillis>
+            <fairness>true</fairness>
+            <minEvictableIdleTimeMillis>1000</minEvictableIdleTimeMillis>
+            <softMinEvictableIdleTimeMillis>1000</softMinEvictableIdleTimeMillis>
+            <numTestsPerEvictionRun>100</numTestsPerEvictionRun>
+            <!--<evictionPolicyClassName>string12</evictionPolicyClassName>  -->
+            <timeBetweenEvictionRunsMillis>1000</timeBetweenEvictionRunsMillis>
+            <blockWhenExhausted>true</blockWhenExhausted>
+            <lifo>true</lifo>
+            <jmxEnabled>true</jmxEnabled>
+            <jmxNamePrefix>string</jmxNamePrefix>
+            <jmxNameBase>string</jmxNameBase>
+        </pool>
+    </pools>
+</xml-body>
