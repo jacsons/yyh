@@ -3,8 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="IUserDao">
-    <select id="queryUserInfos" resultType="UserInfo">
+<mapper namespace="yyh.munia.bgService.db.IUserDao">
+    <select id="queryUserInfos" resultType="yyh.munia.bgService.model.UserInfo">
         SELECT id,sName,sex
         FROM users
     </select>

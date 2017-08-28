@@ -11,7 +11,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
     </bean>
 
     <!--c3p0主要配置-->
-    <bean id="comboPooledConfig" class="yyh.dbservice.com.db.yyh.munia.model.ComboPooledConfig">
+    <bean id="comboPooledConfig" class="yyh.dbservice.com.db.model.ComboPooledConfig">
         <!-- 指定连接数据库的JDBC驱动 -->
         <property name="driverClass">
             <value>${driverClass}</value>

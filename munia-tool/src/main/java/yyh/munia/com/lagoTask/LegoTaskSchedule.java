@@ -23,6 +23,7 @@ public class LegoTaskSchedule
 
 
 
+
     public static void start()
     {
         LoggerManager.record(LoggerType.INFO,"LegoTaskSchedule start!");

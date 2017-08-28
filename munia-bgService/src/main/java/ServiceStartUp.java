@@ -1,5 +1,5 @@
 import yyh.munia.bgService.model.Constant;
-import yyh.munia.com.SpringUtil;
+import yyh.munia.com.SpringBeanUtil;
 import yyh.munia.com.lagoTask.LegoTaskSchedule;
 
 
@@ -16,7 +16,7 @@ public class ServiceStartUp
         //系统
         System.setProperty("SYSTEM_RUNNING_DIR", Constant.SYSTEM_RUNNING_DIR);
 
-        SpringUtil.springInit();
+        SpringBeanUtil.getCtx();
 
         LegoTaskSchedule.start();
 
