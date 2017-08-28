@@ -11,16 +11,15 @@ import java.io.InputStream;
 public class StreamUtil
 {
 
-//    private Class<?> aClass = CharactorDector.class;
-
-
     /**
+     *
      * 返回字符流
      * @param inputStream
      * @return
      */
     public static String detectCharacter(InputStream inputStream)
     {
+
         CharactorDector charactorDector = new CharactorDector();
         String encoding = charactorDector.detect(inputStream);
 

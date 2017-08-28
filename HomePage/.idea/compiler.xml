@@ -28,7 +28,6 @@
         <module name="munia-dbService" />
         <module name="munia-log" />
         <module name="munia-pro" />
-        <module name="munia-redis" />
         <module name="munia-reids" />
         <module name="munia-tool" />
         <module name="munia-util" />
@@ -46,7 +45,7 @@
       <module name="munia-redis" target="1.8" />
       <module name="munia-reids" target="1.8" />
       <module name="munia-tool" target="1.8" />
-      <module name="munia-util" target="1.5" />
+      <module name="munia-util" target="1.8" />
       <module name="munia-util (1)" target="1.5" />
     </bytecodeTargetLevel>
   </component>

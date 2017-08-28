@@ -15,21 +15,35 @@ public class RSA2048Util
     private static final String MODULE_KEY = "";
 
 
-
+    /**
+     * 解密
+     * @param base
+     * @return
+     */
     public static String deEncrypt(String base)
     {
 
 
-        return "";
+
+
+
+        return base;
 
     }
 
 
+    /**
+     *
+     * 加密
+     * @param base
+     *
+     * @return
+     */
     public static String encrypt(String base)
     {
 
 
-        return "";
+        return base;
 
     }
 

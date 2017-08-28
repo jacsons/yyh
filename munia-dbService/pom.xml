@@ -29,7 +29,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>munia-util</artifactId>
+            <artifactId>munia-tool</artifactId>
             <version>${project.version}</version>
         </dependency>
 

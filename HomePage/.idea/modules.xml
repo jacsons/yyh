@@ -8,8 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/../munia-dbService/munia-dbService.iml" filepath="$PROJECT_DIR$/../munia-dbService/munia-dbService.iml" />
       <module fileurl="file://$PROJECT_DIR$/../munia-log/munia-log.iml" filepath="$PROJECT_DIR$/../munia-log/munia-log.iml" />
       <module fileurl="file://$PROJECT_DIR$/../munia-pro/munia-pro.iml" filepath="$PROJECT_DIR$/../munia-pro/munia-pro.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../munia-redis/munia-reids.iml" filepath="$PROJECT_DIR$/../munia-redis/munia-reids.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../munia-tool/munia-util.iml" filepath="$PROJECT_DIR$/../munia-tool/munia-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../munia-tool/munia-tool.iml" filepath="$PROJECT_DIR$/../munia-tool/munia-tool.iml" />
     </modules>
   </component>
 </project>

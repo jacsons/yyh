@@ -13,10 +13,10 @@
         <option value="$PROJECT_DIR$/../munia-log/pom.xml" />
         <option value="$PROJECT_DIR$/../dbService/pom.xml" />
         <option value="$PROJECT_DIR$/../munia-bgService/pom.xml" />
-        <option value="$PROJECT_DIR$/../munia-redis/pom.xml" />
         <option value="$PROJECT_DIR$/../munia-pro/pom.xml" />
         <option value="$PROJECT_DIR$/../munia-dbService/pom.xml" />
         <option value="$PROJECT_DIR$/../munia-util/pom.xml" />
+        <option value="$PROJECT_DIR$/../munia-tool/pom.xml" />
       </list>
     </option>
   </component>

@@ -18,4 +18,15 @@ public class SystemRunInfo
     }
 
 
+    /**
+     *
+     *
+     * @return
+     */
+    public static long getRuntime()
+    {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.availableProcessors();
+    }
+
 }
