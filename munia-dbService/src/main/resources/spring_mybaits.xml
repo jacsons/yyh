@@ -8,6 +8,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:DBConfig.properties" />
+        <property name="fileEncoding" value="UTF-8" />
     </bean>
 
     <!--c3p0主要配置-->
@@ -68,9 +69,17 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+    <bean id="dbScripteHolder" class="yyh.dbservice.com.db.DBScripteHolder">
+
+    </bean>
+
+    <bean id="projectDBMgr" class="yyh.dbservice.com.db.ProjectDBMgr">
+        <property name="dataSource" ref="dataSource" />
+        <property name="dbScripteHolder" ref="dbScripteHolder"/>
+    </bean>
+
 
     <!-- 创建升级数据库使用的类 -->
     <bean id="dbInit" class="yyh.dbservice.com.db.DBInit">
-
     </bean>
 </beans>

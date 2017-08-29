@@ -12,12 +12,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ *
+ *
  * Created by oak on 2017/8/14.
  */
 public class ProjectDBMgr
 {
 
     private BasicDataSource dataSource;
+
+    private DBScripteHolder dbScripteHolder;
 
     /******************************
      *
@@ -50,7 +54,7 @@ public class ProjectDBMgr
         DBProperties dbProperties;
         DBServerImpl dbServer = new DBServerImpl();
 
-        Boolean ret = dbServer.isExsitProject(projectID);
+        Boolean ret = dbServer.isExsitProject(projectName);
 
         //如果存在项目
         if(ret)
@@ -62,8 +66,7 @@ public class ProjectDBMgr
         {
             DBFactory.getInstance().creatNeProject(projectName);
             dbProperties = DBFactory.getInstance().getProjectPropertie(projectName);
-
-            executeCreateProjectScript(dbProperties);
+            dbScripteHolder.getDBScript(dbProperties);
         }
         return dbProperties;
     }
@@ -194,13 +197,39 @@ public class ProjectDBMgr
     }
 
 
+    /**
+     *
+     * @return
+     */
     public BasicDataSource getDataSource()
     {
         return dataSource;
     }
 
+    /**
+     *
+     * @param dataSource
+     */
     public void setDataSource(BasicDataSource dataSource)
     {
         this.dataSource = dataSource;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public DBScripteHolder getDbScripteHolder()
+    {
+        return dbScripteHolder;
+    }
+
+    /**
+     *
+     * @param dbScripteHolder
+     */
+    public void setDbScripteHolder(DBScripteHolder dbScripteHolder)
+    {
+        this.dbScripteHolder = dbScripteHolder;
     }
 }

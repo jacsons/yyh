@@ -19,15 +19,13 @@ public class DBFactory
 
     private static final String PROJECT_PRFEX = "YYH_";
 
-    private static DBFactory instance = null;
-
     /**
      * 获取实例
      * @return
      */
     public static DBFactory getInstance()
     {
-        return LazeInitlazation.getInstance();
+        return LazeInitlazation.dbFactory;
     }
 
 
@@ -78,7 +76,7 @@ public class DBFactory
         }
         catch (DBException e)
         {
-            e.printStackTrace();
+            LoggerManager.record(LoggerType.WARN,"createProject failed");
         }
 
         return dbProperties;
@@ -103,6 +101,9 @@ public class DBFactory
     {
         List<DBProperties> properties = new ArrayList<>();
 
+
+
+
         return properties;
     }
 
@@ -125,7 +126,7 @@ public class DBFactory
 
     public String getProjectName(String projectID)
     {
-        return new StringBuilder().append("PROJECT_PRFEX").append(projectID).toString();
+        return new StringBuilder().append(PROJECT_PRFEX).append(projectID).toString();
     }
 
     /**
@@ -136,10 +137,5 @@ public class DBFactory
     public static class LazeInitlazation
     {
         private static DBFactory dbFactory = new DBFactory();
-
-        public static DBFactory getInstance()
-        {
-            return dbFactory;
-        }
     }
 }

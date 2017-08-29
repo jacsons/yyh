@@ -1,3 +1,6 @@
+import yyh.dbservice.com.db.ProjectDBMgr;
+import yyh.dbservice.com.db.error.DBException;
+import yyh.dbservice.com.db.model.EvaCache;
 import yyh.munia.bgService.model.Constant;
 import yyh.munia.com.SpringBeanUtil;
 import yyh.munia.com.lagoTask.LegoTaskSchedule;
@@ -20,6 +23,17 @@ public class ServiceStartUp
 
         LegoTaskSchedule.start();
 
+        ProjectDBMgr mgr = SpringBeanUtil.getBean("projectDBMgr",ProjectDBMgr.class);
+
+
+        try
+        {
+            EvaCache.setProjectId("111111111");
+            mgr.createProject("111111111");
+        } catch (DBException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 
