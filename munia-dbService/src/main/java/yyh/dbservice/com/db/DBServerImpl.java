@@ -155,7 +155,7 @@ public class DBServerImpl
         }
         dbProperties.setDbName(RedisUtil.hget(indexId, "KEY_PROJECT_NAME_MAP", projectID));
         String dbIp = getProjectIP(projectID);
-        dbProperties.setIp(getProjectIP(dbIp));
+        dbProperties.setIp(dbIp);
         dbProperties.setPort(getDBPort(dbIp));
         return dbProperties;
     }

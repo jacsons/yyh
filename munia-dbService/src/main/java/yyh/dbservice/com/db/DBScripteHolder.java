@@ -43,7 +43,7 @@ public class DBScripteHolder
         {
             con = dataSource.getConnection();
             Statement statement = con.createStatement();
-            statement.execute(String.format("CREATE DATABASE %s",dbProperties.getDbName()));
+            statement.execute(String.format("CREATE DATABASE %d;",dbProperties.getDbName()));
             statement.close();
             return true;
 
@@ -73,6 +73,7 @@ public class DBScripteHolder
         try
         {
             con.close();
+
         } catch (SQLException e)
         {
 

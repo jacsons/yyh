@@ -5,6 +5,7 @@ import yyh.dbservice.com.db.model.ComboPooledConfig;
 import yyh.dbservice.com.db.model.DBProperties;
 import yyh.dbservice.com.db.model.TimeDataSource;
 import yyh.munia.com.RSA.RSA2048Util;
+import yyh.munia.com.util.NumberUtil;
 
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -151,14 +152,13 @@ public class DataSourceFactory
     private static ComboPooledDataSource initComboPooledDataSource()
     {
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
-
         comboPooledDataSource.setUser(comboPooledConfig.getUser());
         comboPooledDataSource.setPassword(RSA2048Util.deEncrypt(comboPooledConfig.getPassword()));
         comboPooledDataSource.setJdbcUrl(comboPooledConfig.getJdbcUrl());
-        comboPooledDataSource.setMaxPoolSize(Integer.valueOf(comboPooledConfig.getMaxPoolSize()));
-        comboPooledDataSource.setMinPoolSize(Integer.valueOf(comboPooledConfig.getMinPoolSize()));
-        comboPooledDataSource.setInitialPoolSize(Integer.valueOf(comboPooledConfig.getInitialPoolSize()));
-        comboPooledDataSource.setMaxIdleTime(Integer.valueOf(comboPooledConfig.getMaxIdleTime()));
+        comboPooledDataSource.setMaxPoolSize(NumberUtil.parserInteger(comboPooledConfig.getMaxPoolSize(),20));
+        comboPooledDataSource.setMinPoolSize(NumberUtil.parserInteger(comboPooledConfig.getMinPoolSize(),2));
+        comboPooledDataSource.setInitialPoolSize(NumberUtil.parserInteger(comboPooledConfig.getInitialPoolSize(),2));
+        comboPooledDataSource.setMaxIdleTime(NumberUtil.parserInteger(comboPooledConfig.getMaxIdleTime(),20));
 
         return comboPooledDataSource;
     }

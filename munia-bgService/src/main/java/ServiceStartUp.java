@@ -28,8 +28,8 @@ public class ServiceStartUp
 
         try
         {
-            EvaCache.setProjectId("111111111");
-            mgr.createProject("111111111");
+            EvaCache.setProjectId("222222222211");
+            mgr.createProject("222222222211");
         } catch (DBException e)
         {
             e.printStackTrace();

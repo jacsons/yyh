@@ -60,12 +60,13 @@ public class ProjectDBMgr
         if(ret)
         {
             LoggerManager.record(LoggerType.INFO,"projectID exsit");
-            dbProperties = DBFactory.getInstance().getProjectPropertie(projectName);
+            dbProperties = DBFactory.getInstance().getProjectPropertie(projectID);
         }
         else
         {
             DBFactory.getInstance().creatNeProject(projectName);
             dbProperties = DBFactory.getInstance().getProjectPropertie(projectName);
+            dbProperties.setDbName(getDBName(dbProperties));
             dbScripteHolder.getDBScript(dbProperties);
         }
         return dbProperties;
@@ -83,7 +84,6 @@ public class ProjectDBMgr
             throw new DBException("projectID is null");
         }
 
-        String projectName = DBFactory.getInstance().getProjectName(projectID);
         DBProperties dbProperties = null;
         DBServerImpl dbServer = new DBServerImpl();
         Boolean ret = dbServer.isExsitProject(projectID);
@@ -194,6 +194,16 @@ public class ProjectDBMgr
         {
             LoggerManager.record(LoggerType.WARN,"Close statements failed :" + e.toString());
         }
+    }
+
+    /**
+     * 获取项目数据库的名称
+     * @param dbProperties
+     * @return
+     */
+    private String getDBName(DBProperties dbProperties)
+    {
+        return new StringBuilder().append(dbProperties.getProjectID()).append("_").append(dbProperties.getDbName()).toString();
     }
 
 
