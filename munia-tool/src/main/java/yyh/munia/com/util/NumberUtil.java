@@ -14,7 +14,7 @@ public class NumberUtil
      * @param defaultValue
      * @return
      */
-    public static int parserInteger(String s,int defaultValue)
+    public static Integer parserInteger(String s,int defaultValue)
     {
         if(StringUtils.isEmpty(s))
         {
@@ -29,12 +29,62 @@ public class NumberUtil
         }
         catch (NumberFormatException e)
         {
-            LoggerManager.record(LoggerType.ERROR,"NumberFormatException failed");
+            LoggerManager.record(LoggerType.ERROR,"parserInteger NumberFormatException failed");
         }
         return defaultValue;
     }
 
 
+    /**
+     * 转
+     * @param s
+     * @param defaultValue
+     * @return
+     */
+    public static Double parserDouble(String s, Double defaultValue)
+    {
+        if(StringUtils.isEmpty(s))
+        {
+            return defaultValue;
+        }
+
+        try
+        {
+            Double result = Double.parseDouble(s);
+
+            return result;
+        }
+        catch (NumberFormatException e)
+        {
+            LoggerManager.record(LoggerType.ERROR,"parserDouble NumberFormatException failed");
+        }
+        return defaultValue;
+    }
 
 
+    /**
+     * 解析float
+     * @param s
+     * @param defaultValue
+     * @return
+     */
+    public static Float parserFloat(String s, Float defaultValue)
+    {
+        if(StringUtils.isEmpty(s))
+        {
+            return defaultValue;
+        }
+
+        try
+        {
+            Float result = Float.parseFloat(s);
+
+            return result;
+        }
+        catch (NumberFormatException e)
+        {
+            LoggerManager.record(LoggerType.ERROR,"parserFloat NumberFormatException failed");
+        }
+        return defaultValue;
+    }
 }

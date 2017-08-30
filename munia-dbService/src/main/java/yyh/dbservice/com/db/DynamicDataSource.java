@@ -2,6 +2,7 @@ package yyh.dbservice.com.db;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import yyh.dbservice.com.db.error.DBException;
 import yyh.dbservice.com.db.model.DBProperties;
 import yyh.dbservice.com.db.model.EvaCache;
@@ -49,7 +50,12 @@ public class DynamicDataSource extends BasicDataSource
             LoggerManager.record(LoggerType.ERROR,"cannot get cp3d, projectID : " + dbProperties.getProjectID());
             throw new SQLException("cannot get cp3d");
         }
-        return cp3d.getConnection();
+        Connection con =  cp3d.getConnection();
+        if(!EvaCache.isNewDb())
+        {
+            con.setCatalog(dbProperties.getDbName());
+        }
+        return con;
     }
 
     /**
@@ -74,19 +80,72 @@ public class DynamicDataSource extends BasicDataSource
         }
 
         ComboPooledDataSource cp3d = dataSourceFactory.getComboPooledDataSource(dbProperties);
-
         if(cp3d == null)
         {
             LoggerManager.record(LoggerType.ERROR,"cannot get cp3d, projectID : " + dbProperties.getProjectID());
             throw new SQLException("cannot get cp3d");
         }
-        return cp3d.getConnection(username,password);
+
+
+
+        Connection con =  cp3d.getConnection();
+        if(!EvaCache.isNewDb())
+        {
+            setCatalog(con,cp3d,dbProperties);
+        }
+        return con;
     }
 
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException
     {
         return null;
+    }
+
+
+    /**
+     * 返回connect
+     * @param dbProperties
+     * @return
+     * @throws SQLException
+     */
+    public Connection createDataBase(DBProperties dbProperties) throws SQLException
+    {
+
+        ComboPooledDataSource cp3d = dataSourceFactory.getComboPooledDataSource(dbProperties);
+        if(cp3d == null)
+        {
+            LoggerManager.record(LoggerType.ERROR,"cannot get cp3d, projectID : " + dbProperties.getProjectID());
+            throw new SQLException("cannot get cp3d");
+        }
+        return cp3d.getConnection();
+    }
+
+
+    /**
+     *
+     * @param con
+     * @param cp3d
+     */
+    private void setCatalog(Connection con, ComboPooledDataSource cp3d, DBProperties dbProperties)
+    {
+
+        try
+        {
+            con.setCatalog(dbProperties.getDbName());
+        }
+        catch (SQLException e)
+        {
+            LoggerManager.record(LoggerType.ERROR,"can not set DataBase!", e);
+            try
+            {
+                DataSourceUtils.doCloseConnection(con,cp3d);
+            } catch (SQLException e1)
+            {
+                LoggerManager.record(LoggerType.ERROR,"can not close DataBase!", e);
+            }
+        }
+
     }
 
 

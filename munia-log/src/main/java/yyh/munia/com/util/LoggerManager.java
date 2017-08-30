@@ -57,6 +57,17 @@ public class LoggerManager
         }
     }
 
+    /**
+     * 预留接口，接受搜集带exceptiton的信息
+     * @param type
+     * @param info
+     * @param e
+     */
+    public static void record(LoggerType type,String info, Exception e)
+    {
+        record(type,info);
+    }
+
 
     /**
      * 记录日志信息,直接是异常信息

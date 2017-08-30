@@ -10,7 +10,7 @@ public class Monitor
      */
     private String projectId;
 
-    private boolean newDB = true;
+    private boolean newDB = false;
 
     public String getProjectId()
     {

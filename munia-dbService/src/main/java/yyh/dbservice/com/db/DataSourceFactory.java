@@ -142,23 +142,27 @@ public class DataSourceFactory
 
     private static TimeDataSource initConnetion(DBProperties dbProperties)
     {
-        return new TimeDataSource(initComboPooledDataSource());
+        return new TimeDataSource(initComboPooledDataSource(dbProperties));
     }
 
     /**
      *
      * @return
      */
-    private static ComboPooledDataSource initComboPooledDataSource()
+    private static ComboPooledDataSource initComboPooledDataSource(DBProperties dbProperties)
     {
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
         comboPooledDataSource.setUser(comboPooledConfig.getUser());
         comboPooledDataSource.setPassword(RSA2048Util.deEncrypt(comboPooledConfig.getPassword()));
-        comboPooledDataSource.setJdbcUrl(comboPooledConfig.getJdbcUrl());
+        comboPooledDataSource.setJdbcUrl(String.format(comboPooledConfig.getJdbcUrl(),dbProperties.getIp(),dbProperties.getPort()));
         comboPooledDataSource.setMaxPoolSize(NumberUtil.parserInteger(comboPooledConfig.getMaxPoolSize(),20));
         comboPooledDataSource.setMinPoolSize(NumberUtil.parserInteger(comboPooledConfig.getMinPoolSize(),2));
         comboPooledDataSource.setInitialPoolSize(NumberUtil.parserInteger(comboPooledConfig.getInitialPoolSize(),2));
         comboPooledDataSource.setMaxIdleTime(NumberUtil.parserInteger(comboPooledConfig.getMaxIdleTime(),20));
+        comboPooledDataSource.setTestConnectionOnCheckin(false);
+        comboPooledDataSource.setTestConnectionOnCheckout(false);
+
+        comboPooledDataSource.setDebugUnreturnedConnectionStackTraces(false);
 
         return comboPooledDataSource;
     }

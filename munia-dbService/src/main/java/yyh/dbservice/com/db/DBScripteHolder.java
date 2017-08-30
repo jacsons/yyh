@@ -41,9 +41,9 @@ public class DBScripteHolder
         Connection con = null;
         try
         {
-            con = dataSource.getConnection();
+            con = dataSource.createDataBase(dbProperties);
             Statement statement = con.createStatement();
-            statement.execute(String.format("CREATE DATABASE %d;",dbProperties.getDbName()));
+            statement.execute(String.format("CREATE DATABASE %s;",dbProperties.getDbName()));
             statement.close();
             return true;
 

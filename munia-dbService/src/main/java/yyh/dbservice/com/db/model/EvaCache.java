@@ -31,7 +31,13 @@ public class EvaCache
      */
     public static boolean isNewDb()
     {
-        return threadLocal.get().isNewDB();
+        boolean isNew = false;
+        if(threadLocal.get() != null)
+        {
+            isNew = threadLocal.get().isNewDB();
+        }
+
+        return isNew;
     }
 
     public static void setNewDB(boolean newDb)

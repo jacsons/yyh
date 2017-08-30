@@ -60,7 +60,7 @@ public class ProjectDBMgr
         if(ret)
         {
             LoggerManager.record(LoggerType.INFO,"projectID exsit");
-            dbProperties = DBFactory.getInstance().getProjectPropertie(projectID);
+            dbProperties = DBFactory.getInstance().getProjectPropertie(projectName);
         }
         else
         {
