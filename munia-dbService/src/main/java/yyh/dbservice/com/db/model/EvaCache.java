@@ -1,5 +1,8 @@
 package yyh.dbservice.com.db.model;
 
+import yyh.munia.com.util.LoggerManager;
+import yyh.munia.com.util.LoggerType;
+
 /**
  *
  * 存储副本单元，保存副本数据，用于线程中的读
@@ -12,6 +15,11 @@ public class EvaCache
 
     public static String getPorjectId()
     {
+        if (threadLocal.get() == null)
+        {
+            LoggerManager.record(LoggerType.WARN,"project is null");
+            return "0";
+        }
 
         return threadLocal.get().getProjectId();
     }

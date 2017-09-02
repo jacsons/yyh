@@ -44,6 +44,11 @@ public class DynamicDataSource extends BasicDataSource
             throw new SQLException("get getProjectDBProperties failed");
         }
 
+        if(dbProperties == null)
+        {
+            throw new SQLException("get getProjectDBProperties failed");
+        }
+
         ComboPooledDataSource cp3d = dataSourceFactory.getComboPooledDataSource(dbProperties);
         if(cp3d == null)
         {
@@ -79,6 +84,12 @@ public class DynamicDataSource extends BasicDataSource
             throw new SQLException("get getProjectDBProperties failed");
         }
 
+        if(dbProperties == null)
+        {
+            throw new SQLException("get getProjectDBProperties failed");
+        }
+
+
         ComboPooledDataSource cp3d = dataSourceFactory.getComboPooledDataSource(dbProperties);
         if(cp3d == null)
         {
@@ -86,9 +97,7 @@ public class DynamicDataSource extends BasicDataSource
             throw new SQLException("cannot get cp3d");
         }
 
-
-
-        Connection con =  cp3d.getConnection();
+        Connection con =  cp3d.getConnection(username,password);
         if(!EvaCache.isNewDb())
         {
             setCatalog(con,cp3d,dbProperties);

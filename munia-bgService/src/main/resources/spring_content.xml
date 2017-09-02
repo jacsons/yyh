@@ -13,9 +13,11 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
         <property name="mapperLocations" value="classpath*:db/*.xml" />
     </bean>
 
+
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="yyh.munia.db"/>
+        <property name="basePackage" value="yyh.munia.bgService.db"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
     </bean>
 
     <bean id="transcationManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

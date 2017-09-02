@@ -23,13 +23,13 @@ public class ServiceStartUp
 
         LegoTaskSchedule.start();
 
+
+        EvaCache.setProjectId("211111111111");
         ProjectDBMgr mgr = SpringBeanUtil.getBean("projectDBMgr",ProjectDBMgr.class);
-
-
         try
         {
-            EvaCache.setProjectId("21111111111");
-            mgr.createProject("21111111111");
+
+            mgr.createProject("211111111111");
         } catch (DBException e)
         {
             e.printStackTrace();

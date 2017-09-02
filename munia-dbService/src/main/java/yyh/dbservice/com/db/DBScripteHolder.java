@@ -26,7 +26,6 @@ public class DBScripteHolder
         creatDataBase(dbProperties);
 
         //此处后续添加liquing升级数据库方法
-
         return new ArrayList<>(1);
     }
 
@@ -39,12 +38,16 @@ public class DBScripteHolder
     private boolean creatDataBase(DBProperties dbProperties)
     {
         Connection con = null;
+        Statement statement = null;
         try
         {
             con = dataSource.createDataBase(dbProperties);
-            Statement statement = con.createStatement();
+            statement = con.createStatement();
             statement.execute(String.format("CREATE DATABASE %s;",dbProperties.getDbName()));
             statement.close();
+            statement = null;
+            con.close();
+            con = null;
             return true;
 
         } catch (SQLException e)
@@ -53,6 +56,7 @@ public class DBScripteHolder
         }
         finally
         {
+            closeQuietly(statement);
             closeQuietly(con);
         }
         return false;
@@ -60,10 +64,12 @@ public class DBScripteHolder
 
 
     /**
+     *
      * 关闭数据库的连接
      * @param con
+     *
      */
-    private void closeQuietly(Connection con)
+    private void closeQuietly(AutoCloseable con)
     {
         if(con == null)
         {
@@ -74,7 +80,7 @@ public class DBScripteHolder
         {
             con.close();
 
-        } catch (SQLException e)
+        } catch (Exception e)
         {
 
             LoggerManager.record(LoggerType.WARN,"Close Connection failed");
@@ -82,12 +88,6 @@ public class DBScripteHolder
         }
 
     }
-
-
-
-
-
-
 
 
 }

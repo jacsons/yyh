@@ -6,9 +6,6 @@ import yyh.dbservice.com.db.model.DBProperties;
 import yyh.munia.com.util.LoggerManager;
 import yyh.munia.com.util.LoggerType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * 与redis打交道，查询数据库
@@ -41,7 +38,6 @@ public class DBFactory
             LoggerManager.record(LoggerType.WARN,"projectID is null");
             return null;
         }
-
 
         DBProperties dbProperties = new DBProperties();
         DBServerImpl dbServer = new DBServerImpl();
@@ -98,15 +94,6 @@ public class DBFactory
         return new DBServerImpl().deleteProject(projectID);
     }
 
-    public static List<DBProperties> getAllProjectInfo()
-    {
-        List<DBProperties> properties = new ArrayList<>();
-
-
-
-
-        return properties;
-    }
 
     /**
      * 查询数据库是否存在
@@ -125,9 +112,25 @@ public class DBFactory
     }
 
 
+    /**
+     * 存储在redis中的名称
+     * @param projectID
+     * @return
+     */
     public String getProjectName(String projectID)
     {
         return new StringBuilder().append(PROJECT_PRFEX).append(projectID).toString();
+    }
+
+
+    /**
+     * 拼接成真实的数据库名称
+     * @param dbProperties
+     * @return
+     */
+    public String getDBname(DBProperties dbProperties)
+    {
+        return new StringBuilder().append(dbProperties.getProjectID()).append("_").append(dbProperties.getDbName()).toString();
     }
 
 
