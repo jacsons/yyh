@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="yyh.munia.bgService.db.IUserDao">
-    <select id="queryUserInfos" resultType="yyh.munia.bgService.model.UserInfo">
+    <select id="queryUserInfos" resultType="yyh.munia.bgService.db.model.UserInfo">
         SELECT id,sName,sex
         FROM users
     </select>

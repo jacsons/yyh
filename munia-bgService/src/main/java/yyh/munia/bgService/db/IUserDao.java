@@ -1,7 +1,7 @@
 package yyh.munia.bgService.db;
 
 import org.springframework.stereotype.Repository;
-import yyh.munia.bgService.model.UserInfo;
+import yyh.munia.bgService.db.model.UserInfo;
 
 import java.util.List;
 

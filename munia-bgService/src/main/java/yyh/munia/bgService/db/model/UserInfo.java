@@ -1,4 +1,4 @@
-package yyh.munia.bgService.model;
+package yyh.munia.bgService.db.model;
 
 /**
  * Created by oak on 2017/8/28.

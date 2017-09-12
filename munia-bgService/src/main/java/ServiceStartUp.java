@@ -1,7 +1,7 @@
 import yyh.dbservice.com.db.ProjectDBMgr;
 import yyh.dbservice.com.db.error.DBException;
 import yyh.dbservice.com.db.model.EvaCache;
-import yyh.munia.bgService.model.Constant;
+import yyh.munia.bgService.db.model.Constant;
 import yyh.munia.com.SpringBeanUtil;
 import yyh.munia.com.lagoTask.LegoTaskSchedule;
 
@@ -34,7 +34,6 @@ public class ServiceStartUp
         {
             e.printStackTrace();
         }
-
     }
 
 

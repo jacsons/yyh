@@ -2,7 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tool"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
 
@@ -11,6 +10,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath*:db/*.xml" />
+        <property name="databaseIdProvider" ref="dbProvider" />
     </bean>
 
 
@@ -25,8 +25,13 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
     </bean>
 
 
-    <!--<tx:annotation-driven transcation-manager="transcationManager"/>-->
-    
     <context:component-scan base-package="yyh.munia.bgService.service" />
+
+
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="classpath:masterLiqui.xml" />
+    </bean>
+
 
 </beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.6"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.6
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.6.xsd">
+<changeSet id="20170903" author="yyh">
+    <createTable tableName="user">
+        <column name="id" type="int">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="sname" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="sex" type="varchar(10)">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+</changeSet>
+</databaseChangeLog>
