@@ -70,12 +70,19 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
         <property name="dbScripteHolder" ref="dbScripteHolder"/>
     </bean>
 
+    <!-- 创建升级数据库使用的类 -->
     <context:annotation-config />
 
-    <context:spring-configured />
     <!-- 创建升级数据库使用的类 -->
+    <context:spring-configured />
 
 
+    <!-- 供liquiBase升级使用   -->
+    <bean id="dbBaseInfo" class="yyh.dbservice.com.db.liquibase.LiquiBaseInfo">
+        <property name="userName"> <value>${driverClass}</value></property>
+        <property name="password"> <value>${password}</value> </property>
+        <property name="driveClass"><value>${driverClass}</value></property>
+    </bean>
 
 
 </beans>

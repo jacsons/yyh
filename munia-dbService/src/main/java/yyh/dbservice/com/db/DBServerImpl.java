@@ -103,8 +103,8 @@ public class DBServerImpl
 
 
     /**
-     * 获取数据库中所有的project信息
-     *
+     * 获取数据库中所有的数据库地址，端口信息
+     * *
      * @return
      */
     public List<DBProperties> getDBProperties()
