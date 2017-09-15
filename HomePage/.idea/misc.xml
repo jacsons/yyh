@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/../munia-dbService/pom.xml" />
         <option value="$PROJECT_DIR$/../munia-util/pom.xml" />
         <option value="$PROJECT_DIR$/../munia-tool/pom.xml" />
+        <option value="$PROJECT_DIR$/../munia-redis/pom.xml" />
       </list>
     </option>
   </component>

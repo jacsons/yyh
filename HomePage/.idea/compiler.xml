@@ -28,6 +28,7 @@
         <module name="munia-dbService" />
         <module name="munia-log" />
         <module name="munia-pro" />
+        <module name="munia-redis" />
         <module name="munia-reids" />
         <module name="munia-tool" />
         <module name="munia-util" />

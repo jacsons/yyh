@@ -32,7 +32,7 @@ public class RedisUtil
     }
 
     /**
-     *  redis操作接口
+     * redis操作接口
      * @param indexID
      * @param modelKey
      * @param filed
@@ -42,6 +42,29 @@ public class RedisUtil
 
         return (String) operator(indexID,getMethod("hget",String.class,String.class),modelKey,filed);
     }
+
+    /**
+     * 获取文件操作
+     * @param indexId
+     * @param taskKey
+     * @return
+     */
+    public synchronized static String hget(int indexId, String taskKey)
+    {
+        return hget(indexId, taskKey);
+    }
+
+
+    /**
+     * 内容写操作
+     * @param indexId
+     * @param taskKey
+     */
+    public synchronized static void hset(int indexId, String taskKey, String modelKey)
+    {
+        hset(indexId, taskKey, modelKey, "");
+    }
+
 
     /**
      * 检查是否存在
@@ -121,9 +144,6 @@ public class RedisUtil
         return method;
     }
 
-
-
-
     /**
      * 获取jedis
      * @param index
@@ -139,4 +159,5 @@ public class RedisUtil
         }
         return null;
     }
+
 }
