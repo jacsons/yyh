@@ -1,17 +1,18 @@
-package yyh.munia.com.prgress;
+package yyh.munia.com.prgress.impl;
 
+import yyh.munia.com.prgress.inf.IProgressOperator;
 import yyh.munia.com.util.redis.util.RedisUtil;
 
 /**
  * 操作数据库的接口
  * Created by oak on 2017/9/15.
  */
-public class ProgressRedisOperator
+public class ProgressRedisOperator implements IProgressOperator
 {
 
     private String taskKey;
 
-    private int reidsIndexId;
+    private int redisIIndexId;
 
     /**
      * 进度读操作
@@ -21,7 +22,7 @@ public class ProgressRedisOperator
     public ProgressRedisOperator(String taskKey, int reidsIndexId)
     {
         this.taskKey = taskKey;
-        this.reidsIndexId = reidsIndexId;
+        this.redisIIndexId = reidsIndexId;
     }
 
 
@@ -30,9 +31,9 @@ public class ProgressRedisOperator
      * @param modelKey
      * @param value
      */
-    public synchronized void hset(String modelKey, String value)
+    public synchronized void write(String modelKey, String value)
     {
-        RedisUtil.hset(this.reidsIndexId, getTaskKey(), modelKey, value);
+        RedisUtil.hset(this.redisIIndexId, getTaskKey(), modelKey, value);
     }
 
     /**
@@ -40,9 +41,9 @@ public class ProgressRedisOperator
      * @param modelKey
      * @return
      */
-    public synchronized String hget(String modelKey)
+    public synchronized String read(String modelKey)
     {
-       return RedisUtil.hget(this.reidsIndexId, getTaskKey(), modelKey);
+       return RedisUtil.hget(this.redisIIndexId, getTaskKey(), modelKey);
     }
 
     /**
@@ -50,10 +51,10 @@ public class ProgressRedisOperator
      * @param modelKey
      * @return
      */
-    public synchronized String hdel(String modelKey)
+    public synchronized String clear(String modelKey)
     {
-        String deleteProgress = hget(modelKey);
-        RedisUtil.hdel(this.reidsIndexId, getTaskKey(), modelKey);
+        String deleteProgress = read(modelKey);
+        RedisUtil.hdel(this.redisIIndexId, getTaskKey(), modelKey);
         return deleteProgress;
     }
 
@@ -67,13 +68,13 @@ public class ProgressRedisOperator
         this.taskKey = taskKey;
     }
 
-    public int getReidsIndexId()
+    public int getRedisIIndexId()
     {
-        return reidsIndexId;
+        return redisIIndexId;
     }
 
-    public void setReidsIndexId(int reidsIndexId)
+    public void setRedisIIndexId(int redisIIndexId)
     {
-        this.reidsIndexId = reidsIndexId;
+        this.redisIIndexId = redisIIndexId;
     }
 }

@@ -30,13 +30,13 @@ public class ProgressFactory
     /**
      * 写数据构造的参数
      */
-    private Object[] writeArges;
+    private  Object[] writeArges;
 
 
     /**
      * 读构造函数的参数
      */
-    private Object[] readArges;
+    private  Object[] readArges;
 
 
 
@@ -46,7 +46,7 @@ public class ProgressFactory
      * @return
      */
 
-    public IProgressWriter buildWriter(String key)
+    public  IProgressWriter buildWriter(String key)
     {
         Class progressClass = iProgressWriter == null ? DefaultTool.class : iProgressReader;
 
@@ -66,7 +66,7 @@ public class ProgressFactory
      * @param key
      * @return
      */
-    public IProgressReader builderReader(String key)
+    public  IProgressReader builderReader(String key)
     {
         Class progressClass = iProgressReader == null ? DefaultTool.class : iProgressReader;
 
@@ -87,7 +87,7 @@ public class ProgressFactory
      * @param args
      * @return
      */
-    private Object newInstance(Class cls, Object[] args)
+    private  Object newInstance(Class cls, Object[] args)
     {
 
         Constructor<?>[] constructors = cls.getConstructors();
@@ -116,7 +116,7 @@ public class ProgressFactory
      * 默认的读写器
      * @return
      */
-    private Object defalutProgress()
+    private  Object defalutProgress()
     {
         try
         {
@@ -129,4 +129,24 @@ public class ProgressFactory
         return new DefaultTool();
     }
 
+
+    public Object[] getWriteArges()
+    {
+        return writeArges;
+    }
+
+    public void setWriteArges(Object[] writeArges)
+    {
+        this.writeArges = writeArges;
+    }
+
+    public  Object[] getReadArges()
+    {
+        return readArges;
+    }
+
+    public void setReadArges(Object[] readArges)
+    {
+        this.readArges = readArges;
+    }
 }

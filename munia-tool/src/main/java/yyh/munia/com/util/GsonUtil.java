@@ -18,7 +18,7 @@ public class GsonUtil
      * @param object
      * @return
      */
-    public static String gsonFrom(Object object)
+    public static <T> String gsonFrom(T object)
     {
         return gson.toJson(object);
     }
@@ -30,7 +30,7 @@ public class GsonUtil
      * @param typeOfT
      * @return
      */
-    public static Object toObject(String json, Type typeOfT)
+    public static <T> T toObject(String json, Type typeOfT)
     {
         return gson.fromJson(json,typeOfT);
     }

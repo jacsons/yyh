@@ -27,7 +27,7 @@ public class TaskProgress
      * 进度
      *
      */
-    private String progress;
+    private int progress;
 
 
     public EnumTaskStatus getEnumTaskStatus()
@@ -50,12 +50,12 @@ public class TaskProgress
         this.messages = messages;
     }
 
-    public String getProgress()
+    public int getProgress()
     {
         return progress;
     }
 
-    public void setProgress(String progress)
+    public void setProgress(int progress)
     {
         this.progress = progress;
     }

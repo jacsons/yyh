@@ -14,5 +14,7 @@ public enum EnumTaskStatus
 
     RUNNING,
 
-    FAILED;
+    FAILED,
+
+    NOT_EXIST;
 }
