@@ -32,7 +32,7 @@ public class ProgressRedisOperator
      */
     public synchronized void hset(String modelKey, String value)
     {
-        RedisUtil.hset(this.reidsIndexId, this.taskKey, modelKey, value);
+        RedisUtil.hset(this.reidsIndexId, getTaskKey(), modelKey, value);
     }
 
     /**
@@ -42,9 +42,20 @@ public class ProgressRedisOperator
      */
     public synchronized String hget(String modelKey)
     {
-       return RedisUtil.hget(this.reidsIndexId, this.taskKey, modelKey);
+       return RedisUtil.hget(this.reidsIndexId, getTaskKey(), modelKey);
     }
 
+    /**
+     * 删除进度信息
+     * @param modelKey
+     * @return
+     */
+    public synchronized String hdel(String modelKey)
+    {
+        String deleteProgress = hget(modelKey);
+        RedisUtil.hdel(this.reidsIndexId, getTaskKey(), modelKey);
+        return deleteProgress;
+    }
 
     public String getTaskKey()
     {
