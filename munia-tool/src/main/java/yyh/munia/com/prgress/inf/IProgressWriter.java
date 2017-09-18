@@ -1,13 +1,12 @@
 package yyh.munia.com.prgress.inf;
 
 import yyh.munia.com.prgress.model.EnumTaskStatus;
-import yyh.munia.com.prgress.model.TaskProgress;
 
 /**
  * 写操作接口
  * Created by oak on 2017/9/14.
  */
-public interface IProgressWriter extends IProgressKey
+public interface IProgressWriter<T> extends IProgressKey
 {
 
     /**
@@ -31,8 +30,6 @@ public interface IProgressWriter extends IProgressKey
      * 清除redis中的值
      * @return
      */
-    TaskProgress clear();
-
-
+    T clear();
 
 }

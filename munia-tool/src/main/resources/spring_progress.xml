@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <!--  -->
+    <bean id="operator" class="yyh.munia.com.prgress.impl.ProgressRedisOperator">
+        <constructor-arg index="0" value="yyh_progress" />
+        <constructor-arg index="1" value="2" />
+    </bean>
+
+    <!-- 初始化进度器 -->
+    <bean id="progressCofniguration" class="yyh.munia.com.prgress.ProgressConfiguration">
+        <property name="iProgressReader" value="yyh.munia.com.prgress.impl.DefaultTool"/>
+        <property name="iProgressWriter" value="yyh.munia.com.prgress.impl.DefaultTool"/>
+        <property name="readArges">
+            <list>
+               <ref bean="operator"></ref>
+            </list>
+        </property>
+        <property name="writeArges">
+            <list>
+                <ref bean="operator"></ref>
+            </list>
+        </property>
+    </bean>
+
+</beans>

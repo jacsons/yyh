@@ -51,7 +51,7 @@ public class SpringBeanUtil
     public static void init()
     {
         LoggerManager.record(LoggerType.INFO,System.getProperty("usr.dir"));
-        String[] url = new String[]{"classpath:spring_content.xml"};
+        String[] url = new String[]{"classpath:spring_progress.xml"};
         ctx = new FileSystemXmlApplicationContext(url);
 
     }

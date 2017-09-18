@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by oak on 2017/9/17.
  */
-public class DefaultTool implements IProgressWriter, IProgressReader, ProgressConstant
+public class DefaultTool implements IProgressWriter<TaskProgress>, IProgressReader<TaskProgress>, ProgressConstant
 {
 
     /**

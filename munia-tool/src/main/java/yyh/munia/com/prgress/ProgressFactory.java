@@ -19,12 +19,18 @@ public class ProgressFactory
     /**
      * 默认的读操作器
      */
-    private static final Class<? extends IProgressReader> iProgressReader = null;
+    private Class<? extends IProgressReader> iProgressReader = null;
 
     /**
      * 默认的写操作器
      */
-    private static final Class<? extends IProgressWriter> iProgressWriter = null;
+    private Class<? extends IProgressWriter> iProgressWriter = null;
+
+
+    /**
+     * 单例
+     */
+    private static final ProgressFactory INSTANCE = new ProgressFactory();
 
 
     /**
@@ -39,6 +45,13 @@ public class ProgressFactory
     private  Object[] readArges;
 
 
+    /**
+     * 单例模式
+     */
+    private ProgressFactory()
+    {
+
+    }
 
     /**
      * 构建写进度器
@@ -48,17 +61,10 @@ public class ProgressFactory
 
     public  IProgressWriter buildWriter(String key)
     {
-        Class progressClass = iProgressWriter == null ? DefaultTool.class : iProgressReader;
+        IProgressWriter iProgressWriter = writerInstance();
+        iProgressWriter.setKey(key);
 
-        try
-        {
-            return writeArges.length == 0 ? (IProgressWriter)progressClass.newInstance() : (IProgressWriter)newInstance(progressClass, writeArges);
-        }
-        catch (InstantiationException | IllegalAccessException e)
-        {
-            return  (IProgressWriter)defalutProgress();
-        }
-
+        return iProgressWriter;
     }
 
     /**
@@ -68,8 +74,45 @@ public class ProgressFactory
      */
     public  IProgressReader builderReader(String key)
     {
-        Class progressClass = iProgressReader == null ? DefaultTool.class : iProgressReader;
+        IProgressReader iProgressReader = readerInstance();
+        iProgressReader.setKey(key);
 
+        return iProgressReader;
+    }
+
+    /**
+     * 返回该数据类型
+     * @return
+     */
+    public static ProgressFactory getInstanc()
+    {
+        return INSTANCE;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private  IProgressWriter writerInstance()
+    {
+        Class progressClass = iProgressWriter == null ? DefaultTool.class : iProgressReader;
+        try
+        {
+            return writeArges.length == 0 ? (IProgressWriter)progressClass.newInstance() : (IProgressWriter)newInstance(progressClass, writeArges);
+        }
+        catch (InstantiationException | IllegalAccessException e)
+        {
+            return  (IProgressWriter)defalutProgress();
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private IProgressReader readerInstance()
+    {
+        Class progressClass = iProgressReader == null ? DefaultTool.class : iProgressReader;
         try
         {
             return readArges.length == 0 ? (IProgressReader)progressClass.newInstance() : (IProgressReader)newInstance(progressClass, readArges);
@@ -78,7 +121,6 @@ public class ProgressFactory
         {
             return  (IProgressReader)defalutProgress();
         }
-
     }
 
 
@@ -91,13 +133,11 @@ public class ProgressFactory
     {
 
         Constructor<?>[] constructors = cls.getConstructors();
-
         for (Constructor constructor : constructors)
         {
             Parameter[] parameters = constructor.getParameters();
             if(parameters.length == args.length)
             {
-
                 try
                 {
                     return constructor.newInstance(args);
@@ -108,9 +148,8 @@ public class ProgressFactory
                 }
             }
         }
-        return null;
+        return new RuntimeException("not support this length args");
     }
-
 
     /**
      * 默认的读写器
@@ -129,6 +168,26 @@ public class ProgressFactory
         return new DefaultTool();
     }
 
+
+    public Class<? extends IProgressReader> getiProgressReader()
+    {
+        return iProgressReader;
+    }
+
+    public void setiProgressReader(Class<? extends IProgressReader> iProgressReader)
+    {
+        this.iProgressReader = iProgressReader;
+    }
+
+    public Class<? extends IProgressWriter> getiProgressWriter()
+    {
+        return iProgressWriter;
+    }
+
+    public void setiProgressWriter(Class<? extends IProgressWriter> iProgressWriter)
+    {
+        this.iProgressWriter = iProgressWriter;
+    }
 
     public Object[] getWriteArges()
     {
