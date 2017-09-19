@@ -12,9 +12,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <!-- 初始化进度器 -->
     <bean id="progressCofniguration" class="yyh.munia.com.prgress.ProgressConfiguration">
-        <property name="iProgressReader" value="yyh.munia.com.prgress.impl.DefaultTool"/>
-        <property name="iProgressWriter" value="yyh.munia.com.prgress.impl.DefaultTool"/>
-        <property name="readArges">
+        <property name="iProgressReader" value="yyh.munia.com.prgress.impl.ProgressReader" />
+        <property name="iProgressWriter" value="yyh.munia.com.prgress.impl.ProgressWriter" />
+        <property name=" readArges">
             <list>
                <ref bean="operator"></ref>
             </list>

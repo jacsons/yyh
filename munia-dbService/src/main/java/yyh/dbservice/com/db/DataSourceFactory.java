@@ -44,6 +44,9 @@ public class DataSourceFactory
     private static ReadWriteLock reentrantReadWriteLock  = new  ReentrantReadWriteLock();
 
 
+    /**
+     * cp3d配置
+     */
     private static ComboPooledConfig comboPooledConfig;
 
 
@@ -161,7 +164,6 @@ public class DataSourceFactory
         comboPooledDataSource.setMaxIdleTime(NumberUtil.parserInteger(comboPooledConfig.getMaxIdleTime(),20));
         comboPooledDataSource.setTestConnectionOnCheckin(false);
         comboPooledDataSource.setTestConnectionOnCheckout(false);
-
         comboPooledDataSource.setDebugUnreturnedConnectionStackTraces(false);
 
         return comboPooledDataSource;

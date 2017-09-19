@@ -1,9 +1,11 @@
 package yyh.dbservice.com.db.liquibase;
 
+import liquibase.exception.LiquibaseException;
+import liquibase.integration.spring.SpringLiquibase;
 import liquibase.util.NetUtil;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.InitializingBean;
 import yyh.dbservice.com.db.DBServerImpl;
+import yyh.dbservice.com.db.DynamicDataSource;
+import yyh.dbservice.com.db.IOCloseUtil;
 import yyh.dbservice.com.db.model.DBProperties;
 import yyh.munia.com.util.LoggerManager;
 import yyh.munia.com.util.LoggerType;
@@ -12,13 +14,14 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
  * 初始化
  * Created by oak on 2017/9/13.
  */
-public class BaseDBinit implements InitializingBean
+public class BaseDBinit extends SpringLiquibase
 {
     /**
      * 提供给其他地方用的锁
@@ -56,10 +59,10 @@ public class BaseDBinit implements InitializingBean
     /**
      * 保证mysql一定存在，这个的意义在与，yyh_liqui_DB不存在时，先连接到mysql创建数据库。
      */
-    private static final String MYSQL = "Mysql";
+    private static final String MYSQL = "MYSQL";
 
 
-    private BasicDataSource dataSource;
+    private DynamicDataSource dataSource;
 
     /**
      * 更新数据库
@@ -67,7 +70,7 @@ public class BaseDBinit implements InitializingBean
      * @throws Exception
      */
     @Override
-    public void afterPropertiesSet() throws Exception
+    public void afterPropertiesSet() throws LiquibaseException
     {
         DBServerImpl dbServer = new DBServerImpl();
 
@@ -81,12 +84,12 @@ public class BaseDBinit implements InitializingBean
         }
     }
 
-    public BasicDataSource getDataSource()
+    public DynamicDataSource getDataSource()
     {
         return dataSource;
     }
 
-    public void setDataSource(BasicDataSource dataSource)
+    public void setDataSource(DynamicDataSource dataSource)
     {
         this.dataSource = dataSource;
     }
@@ -95,13 +98,14 @@ public class BaseDBinit implements InitializingBean
     /**
      * 更新DB,其实是创建db数据库
      */
-    private void updateDB(DBProperties dbPropertie)
+    private void updateDB(DBProperties dbPropertie) throws LiquibaseException
     {
         //确认下这个连接是哪里来的
         Connection connection = null;
+        Statement statement = null;
         try
         {
-            connection = this.getDataSource().getConnection();
+            connection = this.getDataSource().createDataBase(dbPropertie);
         }
         catch (SQLException e)
         {
@@ -112,13 +116,30 @@ public class BaseDBinit implements InitializingBean
         if (connection == null)
         {
 
+            //连接到MYSQL上。
 
+            try
+            {
+                connection = this.getDataSource().createDataBase(dbPropertie);
 
+                if(connection == null)
+                {
+                    LoggerManager.record(LoggerType.ERROR, "BaseDBinit updateDB getConnection MYSQL failed");
 
+                }
 
+                statement = connection.createStatement();
+                statement.execute(String.format(SQL_CREAT, DB_NAME));
+            }
+            catch (SQLException e)
+            {
+                LoggerManager.record(LoggerType.ERROR, "BaseDBinit updateDB getConnection MYSQL failed");
+            }
 
-
+            IOCloseUtil.close(statement);
+            IOCloseUtil.close(connection);
         }
+        super.afterPropertiesSet();
     }
 
     /**
@@ -133,8 +154,7 @@ public class BaseDBinit implements InitializingBean
     {
         //多查询语句是怎么写的
         String head = String.format("jdbc:mysql://%s:%s/%s", ip, port, dbName);
-        String url = head + "?useUnicode=true&amp;characterEncoding=utf-8&useSSL=false&multiquery=true";
+        String url = head + "?useUnicode=true&amp;characterEncoding=utf-8&useSSL=false&allowMultiQueries=true";
         return url;
     }
-
 }
