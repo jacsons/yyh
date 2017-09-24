@@ -4,7 +4,6 @@ import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 import liquibase.util.NetUtil;
 import yyh.dbservice.com.db.DBServerImpl;
-import yyh.dbservice.com.db.DynamicDataSource;
 import yyh.dbservice.com.db.IOCloseUtil;
 import yyh.dbservice.com.db.model.DBProperties;
 import yyh.munia.com.util.LoggerManager;
@@ -62,7 +61,12 @@ public class BaseDBinit extends SpringLiquibase
     private static final String MYSQL = "MYSQL";
 
 
-    private DynamicDataSource dataSource;
+    private BasicConnection dataSource;
+
+    private String userName;
+
+
+    private String password;
 
     /**
      * 更新数据库
@@ -84,12 +88,12 @@ public class BaseDBinit extends SpringLiquibase
         }
     }
 
-    public DynamicDataSource getDataSource()
+    public BasicConnection getDataSource()
     {
         return dataSource;
     }
 
-    public void setDataSource(DynamicDataSource dataSource)
+    public void setDataSource(BasicConnection dataSource)
     {
         this.dataSource = dataSource;
     }
@@ -103,9 +107,14 @@ public class BaseDBinit extends SpringLiquibase
         //确认下这个连接是哪里来的
         Connection connection = null;
         Statement statement = null;
+
+        this.getDataSource().setUsername(getUserName());
+        this.getDataSource().setPassword(getPassword());
+        this.getDataSource().setUrl(getDBURL(dbPropertie.getIp(), dbPropertie.getPort(), DB_NAME));
+
         try
         {
-            connection = this.getDataSource().createDataBase(dbPropertie);
+            connection = this.getDataSource().getConnection();
         }
         catch (SQLException e)
         {
@@ -120,7 +129,8 @@ public class BaseDBinit extends SpringLiquibase
 
             try
             {
-                connection = this.getDataSource().createDataBase(dbPropertie);
+                this.getDataSource().setUrl(getDBURL(dbPropertie.getIp(), dbPropertie.getPort(), MYSQL));
+                connection = this.getDataSource().getConnection();
 
                 if(connection == null)
                 {
@@ -135,11 +145,40 @@ public class BaseDBinit extends SpringLiquibase
             {
                 LoggerManager.record(LoggerType.ERROR, "BaseDBinit updateDB getConnection MYSQL failed");
             }
-
-            IOCloseUtil.close(statement);
-            IOCloseUtil.close(connection);
+            finally
+            {
+                IOCloseUtil.close(statement);
+                IOCloseUtil.close(connection);
+            }
         }
+
+        super.setDataSource(this.dataSource);
         super.afterPropertiesSet();
+
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 
     /**
