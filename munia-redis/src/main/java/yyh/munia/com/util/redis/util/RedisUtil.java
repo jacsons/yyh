@@ -6,6 +6,7 @@ import yyh.munia.com.util.LoggerType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  *
@@ -78,9 +79,27 @@ public class RedisUtil
         return (boolean) operator(indexID,getMethod("hexists",String.class,String.class),modelKey,filed);
     }
 
+    /**
+     * 删除modelKey filed
+     * @param indexID
+     * @param modelKey
+     * @param filed
+     * @return
+     */
     public synchronized static boolean hdel(int indexID,String modelKey,String filed)
     {
         return (boolean) operator(indexID,getMethod("hdel",String.class,String.class),modelKey,filed);
+    }
+
+    /**
+     * 获取modelKey下所有的key value对
+     * @param indexID
+     * @param modelKey
+     * @return
+     */
+    public synchronized static Set<String> hkeys(int indexID,String modelKey)
+    {
+        return (Set<String>)operator(indexID,getMethod("hkeys",String.class),modelKey);
     }
 
 

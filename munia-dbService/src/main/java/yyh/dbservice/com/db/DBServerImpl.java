@@ -9,6 +9,7 @@ import yyh.munia.com.util.redis.util.RedisUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 与redis打交道的类
@@ -26,8 +27,6 @@ public class DBServerImpl
      *
      * KEY_MYSQL_PORT_MAP ： mysqlIP 与端口的对应关系，这个要预先配置好。
      */
-
-
     int indexId = 2;
 
     /**
@@ -73,16 +72,6 @@ public class DBServerImpl
     }
 
     /**
-     * 获取可用的数据库，有一个算法可以实现，这个先返回本地ip
-     *
-     * @return
-     */
-    public String allocateIP()
-    {
-        return "127.0.0.1";
-    }
-
-    /**
      * 返回数据库的名称
      *
      * @param projectID
@@ -109,14 +98,20 @@ public class DBServerImpl
      */
     public List<DBProperties> getDBProperties()
     {
-        List<DBProperties> result = new ArrayList<>();
+        List<DBProperties> results = new ArrayList<>();
 
+        Set<String> ips = RedisUtil.hkeys(indexId, "KEY_DB_MYSQL_MAP");
 
+        DBProperties dbProperties;
+        for (String ip : ips)
+        {
+            dbProperties = new DBProperties();
+            dbProperties.setIp(ip);
+            dbProperties.setPort(RedisUtil.hget(indexId, "KEY_DB_MYSQL_MAP", ip));
 
-
-
-
-        return result;
+            results.add(dbProperties);
+        }
+        return results;
     }
 
     /**
@@ -213,5 +208,16 @@ public class DBServerImpl
         dbProperties.setPort(getDBPort(dbIp));
         return dbProperties;
     }
+
+    /**
+     * 获取可用的数据库，有一个算法可以实现，这个先返回本地ip
+     *
+     * @return
+     */
+    private String allocateIP()
+    {
+        return "127.0.0.1";
+    }
+
 
 }

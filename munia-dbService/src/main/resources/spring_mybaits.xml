@@ -62,7 +62,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
     </bean>
 
     <bean id="dbScripteHolder" class="yyh.dbservice.com.db.DBScripteHolder">
-
+        <property name="dataSource" ref="dataSource" />
+        <property name="baseInit" ref="baseInit" />
     </bean>
 
     <bean id="projectDBMgr" class="yyh.dbservice.com.db.ProjectDBMgr">
@@ -77,12 +78,30 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.spri
     <context:spring-configured />
 
 
-    <!-- 供liquiBase升级使用   -->
-    <bean id="dbBaseInfo" class="yyh.dbservice.com.db.liquibase.LiquiBaseInfo">
-        <property name="userName"> <value>${driverClass}</value></property>
-        <property name="password"> <value>${password}</value> </property>
+    <!-- 初始化参数配置类 -->
+    <bean id="liquiBaseInfoInit" class="yyh.dbservice.com.db.liquibase.LiquiBaseInfoInit">
+        <property name="userName"><value>${user}</value></property>
+        <property name="password"><value>${password}</value></property>
         <property name="driveClass"><value>${driverClass}</value></property>
     </bean>
 
 
+    <!-- 静态库初始化  -->
+    <bean id="dbBaseInfo" class="yyh.dbservice.com.db.liquibase.BaseDBinit">
+        <property name="userName"> <value>${driverClass}</value></property>
+        <property name="password"> <value>${password}</value> </property>
+    </bean>
+
+    <!-- 配置datasource -->
+    <bean id="baseInit" class="yyh.dbservice.com.db.liquibase.BaseInit">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="tableUtil" class="yyh.dbservice.com.util.TableUtil">
+        <property name="chaneLogs">
+            <list>
+                <value>"yyh.init.table"</value>
+            </list>
+        </property>
+    </bean>
 </beans>

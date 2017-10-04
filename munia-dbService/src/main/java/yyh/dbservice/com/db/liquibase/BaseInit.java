@@ -65,9 +65,9 @@ public class BaseInit extends SpringLiquibase
      * @param projectId
      * @param changeLogs
      */
-    public void updata(Long projectId, String...changeLogs)
+    public void updata(String projectId, String...changeLogs)
     {
-        EvaCache.setProjectId(projectId.toString());
+        EvaCache.setProjectId(projectId);
         for(String changeLog : changeLogs)
         {
 

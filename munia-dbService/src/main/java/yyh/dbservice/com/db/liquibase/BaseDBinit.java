@@ -17,7 +17,7 @@ import java.sql.Statement;
 import java.util.List;
 
 /**
- * 初始化
+ * 创建静态数据库，对静态数据进行升级
  * Created by oak on 2017/9/13.
  */
 public class BaseDBinit extends SpringLiquibase
@@ -158,7 +158,7 @@ public class BaseDBinit extends SpringLiquibase
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getUserName()

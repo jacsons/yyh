@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <templates>
+        <!-- 小区信息 -->
+        <template id ="1" nameZh="小区信息" nameEn="courtInfo" token="Residential">
+            <columns id="1">
+                <column id="1" nameZh="小区名称" nameEn="court name" type="String" />
+                <column id="2" nameZh="小区所属区域" nameEn="administration" type="String" />
+                <column id="3" nameZh="住户数" nameEn="administration" type="number" >
+                    <constrant min="0"/>
+                </column>
+                <column id="4" nameZh="建造年限" nameEn="administration" type="number" >
+                    <constrant min="0"/>
+                </column>
+                <column id="5" nameZh="房价" nameEn="administration" type="number" >
+                    <constrant min="0"/>
+                </column>
+                <column id="6" nameZh="租售数" nameEn="administration" type="number" >
+                    <constrant min="0"  emptyable = "true"/>
+                </column>
+                <column id="7" nameZh="层高" nameEn="administration" type="number" >
+                    <constrant min="0"  emptyable = "true"/>
+                </column>
+                <column id="8" nameZh="运营商系统id" nameEn="administration" type="number" >
+                    <constrant emptyable = "true"/>
+                </column>
+            </columns>
+            <columns id="2">
+                <column id="1" nameZh="小区名称" nameEn="court name" type="String">
+                    <dependent templateId="1" columns="1" column="1" />
+                </column>
+                <column id="2" nameZh="小区所属区域" nameEn="administration" type="String">
+                    <dependent templateId="1" columns="1" column="2" />
+                </column>
+                <column id="3" nameZh="边界信息" nameEn="boundary info" type="String" />
+            </columns>
+        </template>
+
+        <!-- 运营商进驻 -->
+        <template id="2" nameZh="运营商入驻" nameEn="xx" token="">
+            <columns id="1">
+                <column id="1" nameZh="小区名称" nameEn="court name" type="String">
+                    <dependent templateId="1" columns="1" column="1" />
+                </column>
+                <column id="2" nameZh="小区所属区域" nameEn="administration" type="String">
+                    <dependent templateId="1" columns="1" column="2" />
+                </column>
+                <column id="3" nameZh="进驻isp总数" nameEn="isp" type="number">
+                    <constrant min="0" />
+                </column>
+                <column id="4" nameZh="联通" nameEn="xx" type="number">
+                    <constrant min="0" />
+                </column>
+                <column id="5" nameZh="电信" nameEn="xx" type="number">
+                    <constrant min="0" />
+                </column>
+                <column id="6" nameZh="xx" nameEn="xx" type="number">
+                    <constrant min="0" />
+                </column>
+            </columns>
+        </template>
+
+    </templates>
+</root>

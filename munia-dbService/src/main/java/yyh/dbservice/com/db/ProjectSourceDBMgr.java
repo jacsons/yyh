@@ -47,7 +47,6 @@ public class ProjectSourceDBMgr
         //项目id未找到
         if (db == null)
         {
-
             return SYSTEM_CONFIG_DB.equals(projectKey) ? initSystemDB(projectKey) : getProjectProperite(projectKey);
         }
         return db;

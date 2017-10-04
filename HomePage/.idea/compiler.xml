@@ -27,6 +27,7 @@
         <module name="munia-bgService" />
         <module name="munia-dbService" />
         <module name="munia-log" />
+        <module name="munia-parser" />
         <module name="munia-pro" />
         <module name="munia-redis" />
         <module name="munia-reids" />
@@ -42,6 +43,7 @@
       <module name="munia-bgService" target="1.8" />
       <module name="munia-dbService" target="1.8" />
       <module name="munia-log" target="1.8" />
+      <module name="munia-parser" target="1.8" />
       <module name="munia-pro" target="1.8" />
       <module name="munia-redis" target="1.8" />
       <module name="munia-reids" target="1.8" />

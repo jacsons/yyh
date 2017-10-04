@@ -1,9 +1,9 @@
 package yyh.munia.com.util;
 
-import yyh.munia.com.file.TxtParse;
-import yyh.munia.com.file.ITravel;
-import yyh.munia.com.file.NullParse;
-import yyh.munia.com.file.model.EFileType;
+import yyh.munia.com.fileParser.TxtParse;
+import yyh.munia.com.fileParser.ITravel;
+import yyh.munia.com.fileParser.NullParse;
+import yyh.munia.com.fileParser.model.EFileType;
 
 import java.io.File;
 

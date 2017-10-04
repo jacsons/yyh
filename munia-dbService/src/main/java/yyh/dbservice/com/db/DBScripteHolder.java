@@ -1,6 +1,6 @@
 package yyh.dbservice.com.db;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import yyh.dbservice.com.db.liquibase.BaseInit;
 import yyh.dbservice.com.db.model.DBProperties;
 import yyh.munia.com.util.LoggerManager;
 import yyh.munia.com.util.LoggerType;
@@ -17,15 +17,21 @@ import java.util.List;
  */
 public class DBScripteHolder
 {
-    @Autowired
     private DynamicDataSource dataSource;
 
+
+    private BaseInit baseInit;
+
+    /**
+     * 创建数据库
+     * @param dbProperties
+     * @return
+     */
     public List<String> getDBScript(DBProperties dbProperties)
     {
-
         creatDataBase(dbProperties);
-
         //此处后续添加liquing升级数据库方法
+
         return new ArrayList<>(1);
     }
 
@@ -80,14 +86,32 @@ public class DBScripteHolder
         {
             con.close();
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
 
             LoggerManager.record(LoggerType.WARN,"Close Connection failed");
 
         }
-
     }
 
+    public DynamicDataSource getDataSource()
+    {
+        return dataSource;
+    }
 
+    public void setDataSource(DynamicDataSource dataSource)
+    {
+        this.dataSource = dataSource;
+    }
+
+    public BaseInit getBaseInit()
+    {
+        return baseInit;
+    }
+
+    public void setBaseInit(BaseInit baseInit)
+    {
+        this.baseInit = baseInit;
+    }
 }
