@@ -5,7 +5,6 @@ import yyh.munia.com.fileParser.ITravel;
 import yyh.munia.com.fileParser.model.EFileType;
 import yyh.munia.com.fileParser.model.PathHolder;
 import yyh.munia.com.lagoTask.LegoTaskMgr;
-import yyh.munia.com.lagoTask.LegoTaskSchedule;
 import yyh.munia.com.util.FileTaskMagr;
 import yyh.munia.com.util.LoggerManager;
 import yyh.munia.com.util.LoggerType;
@@ -36,6 +35,11 @@ public class VerificationParser
      */
     private static final String XML_DEPENDENT = "dependent";
 
+    /**
+     * 本类的唯一实例
+     */
+    private static VerificationParser verificationParser = new VerificationParser();
+
     static
     {
         pathHolder.addPath("verification.xml");
@@ -46,20 +50,44 @@ public class VerificationParser
      */
     private Map<String, TemplateModel> templateModelMap = new HashMap<>();
 
+    /**
+     * 是否进行初始化
+     */
+    private boolean isinit = false;
 
-
-    public Map<String, TemplateModel> getTemplateModelMap()
+    private VerificationParser()
     {
-        return templateModelMap;
-    }
 
-    public void setTemplateModelMap(Map<String, TemplateModel> templateModelMap)
-    {
-        this.templateModelMap = templateModelMap;
     }
 
     /**
-     * Xml解析
+     * 获取该实例
+     * @return
+     */
+    public static VerificationParser getInstance()
+    {
+        return verificationParser;
+    }
+
+
+    /**
+     * 获取解析后的模版对象
+     * @return
+     */
+    public synchronized Map<String, TemplateModel> getTemplateModelMap()
+    {
+
+        if(!isinit)
+        {
+            XmlParser();
+            isinit = true;
+        }
+        return templateModelMap;
+    }
+
+
+    /**
+     * Xml解析,启动的时候解析
      */
     private void XmlParser()
     {
@@ -291,18 +319,6 @@ public class VerificationParser
         public void travelEnd()
         {
 
-
-        }
-    }
-
-
-    public static void main(String[] args)
-    {
-        LegoTaskSchedule.start();
-        VerificationParser verificationParser = new VerificationParser();
-        verificationParser.XmlParser();
-        while (true)
-        {
 
         }
     }
