@@ -104,6 +104,15 @@ public abstract class ILegoTask<T>
     }
 
     /**
+     * 运行是否结束
+     * @return
+     */
+    public boolean isDone()
+    {
+        return futureTask.isDone();
+    }
+
+    /**
      *
      * @return
      */

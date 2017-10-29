@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <declare>
+        <prop key="sheetTravel" value="" />
+    </declare>
+    <travels>
+        <prop key="数据库dao层" value="解析器" />
+    </travels>
+
+    <handles>
+        <prop key="数据库dao层">
+            <value>过滤器</value>
+            <value>过滤器</value>
+        </prop>
+    </handles>
+
+    <wrappers>
+        <prop key="数据库dao层" className="模型地址">
+            <fields>
+
+            </fields>
+            <fields>
+
+            </fields>
+        </prop>
+    </wrappers>
+</root>

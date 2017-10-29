@@ -4,7 +4,7 @@ import org.dom4j.Element;
 import yyh.munia.com.fileParser.ITravel;
 import yyh.munia.com.fileParser.model.EFileType;
 import yyh.munia.com.fileParser.model.PathHolder;
-import yyh.munia.com.lagoTask.LegoTaskMgr;
+import yyh.munia.com.prgress.model.EnumTaskStatus;
 import yyh.munia.com.util.FileTaskMagr;
 import yyh.munia.com.util.LoggerManager;
 import yyh.munia.com.util.LoggerType;
@@ -96,7 +96,10 @@ public class VerificationParser
         {
             String file = pathHolder.next();
             FileTaskMagr fileTaskMagr = new FileTaskMagr(new verificationTravel(), EFileType.XML_TYPE, file);
-            LegoTaskMgr.getInstance().submit(fileTaskMagr);
+            if( fileTaskMagr.main() != EnumTaskStatus.SUCCESS)
+            {
+                LoggerManager.record(LoggerType.ERROR, "parser file error, file is :" + file);
+            }
         }
     }
 
