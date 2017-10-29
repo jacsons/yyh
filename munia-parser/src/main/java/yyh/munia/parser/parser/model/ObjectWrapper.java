@@ -1,4 +1,4 @@
-package yyh.munia.parser.parser.common;
+package yyh.munia.parser.parser.model;
 
 /**
  * 存储行与模型中列对应的对象

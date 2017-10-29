@@ -8,4 +8,9 @@ public interface IHanlder
 {
 
 
+    /**
+     * 初始化init
+     * @return
+     */
+    boolean afterInit();
 }

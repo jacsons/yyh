@@ -1,5 +1,8 @@
 package yyh.munia.parser.parser.model;
 
+import yyh.munia.parser.parser.inf.IAfterInit;
+import yyh.munia.parser.parser.inf.IBeforeInit;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -20,6 +23,24 @@ public class LazyHashMap<T> extends HashMap<String,T>
      */
     private Map<String,T> hanlderMap = new HashMap<>();
 
+    /**
+     * 已经实力话的handler对象
+     */
+    private IAfterInit<T> iAfterInit;
+
+    private IBeforeInit<T> iBeforeInit;
+
+
+    /**
+     *
+     * @param iBeforeInit
+     * @param iAfterInit
+     */
+    public LazyHashMap(IBeforeInit<T> iBeforeInit, IAfterInit<T> iAfterInit)
+    {
+        this.iBeforeInit = iBeforeInit;
+        this.iAfterInit = iAfterInit;
+    }
 
 
 

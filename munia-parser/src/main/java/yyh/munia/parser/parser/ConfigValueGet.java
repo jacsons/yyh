@@ -52,6 +52,11 @@ public class ConfigValueGet
         this.valueGet = parserValueGet(value);
     }
 
+
+    public Object getValue(Map<String, Object> def, String projectId)
+    {
+        return this.valueGet.getValue(def, projectId);
+    }
     /**
      * 根据key 解析初Value对象
      * @param value
@@ -117,7 +122,7 @@ public class ConfigValueGet
     /**
      * 获取对象的顶层类
      */
-    public interface ValueGet
+    private interface ValueGet
     {
 
         Object getValue(Map<String, Object> def, String projectID);

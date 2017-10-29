@@ -19,7 +19,7 @@ import java.util.concurrent.Semaphore;
  *
  * Created by oak on 2017/10/27.
  */
-public class ListLazyHashMap<T> extends HashMap<String,List<ConfigValueGet>>
+public class ListLazyHashMap<T> extends HashMap<String,List<T>>
 {
 
     /**
@@ -37,7 +37,7 @@ public class ListLazyHashMap<T> extends HashMap<String,List<ConfigValueGet>>
     /**
      * 存放的处理类
      */
-    private Map<String,List<T>> handlerMap = new HashMap<>();
+    private Map<String,List<ConfigValueGet>> confMap = new HashMap<>();
 
     /**
      *
@@ -65,9 +65,9 @@ public class ListLazyHashMap<T> extends HashMap<String,List<ConfigValueGet>>
         }
         if (!super.containsKey(value.getKey()))
         {
-            super.put(value.getKey(),new ArrayList<>());
+            confMap.put(value.getKey(),new ArrayList<>());
         }
-        super.get(value.getKey()).add(value);
+        confMap.get(value.getKey()).add(value);
         return value;
     }
 
@@ -86,12 +86,7 @@ public class ListLazyHashMap<T> extends HashMap<String,List<ConfigValueGet>>
 
         if (!super.containsKey(key))
         {
-            return null;
-        }
-
-        if (!semaphoreMap.containsKey(key))
-        {
-            return handlerMap.get(key);
+            return super.get(key);
         }
 
         //如果还没有拿到，那么得初始化了
@@ -99,30 +94,31 @@ public class ListLazyHashMap<T> extends HashMap<String,List<ConfigValueGet>>
         try
         {
             semaphore.acquire();
-            if (this.iBeforeInit != null)
+            if (!semaphoreMap.containsKey(key))
             {
-                //执行行数主体
-                List<ConfigValueGet> configValueGets = super.get(key);
-                handlerMap.put(key,new ArrayList<>(configValueGets.size()));
-                for (ConfigValueGet configValueGet : configValueGets)
+                return super.get(key);
+            }
+
+            //执行行数主体
+            List<ConfigValueGet> configValueGets = confMap.get(key);
+            super.put(key,new ArrayList<>(configValueGets.size()));
+            for (ConfigValueGet configValueGet : configValueGets)
+            {
+
+                T iHandler = (T)configValueGet.getValue(def,"0");
+                if (this.iBeforeInit.beforeInit(iHandler))
                 {
-
-                    Object iHandler = configValueGet.getValueGet().getValue(def,"0");
-                    if (this.iBeforeInit.beforeInit((T) iHandler))
-                    {
-                        LoggerManager.record(LoggerType.ERROR, "before init failed, key is" + key);
-                    }
-
-                    handlerMap.get(key).add((T) iHandler);
-                    if (iAfterInit != null && iAfterInit.afterInit((T) iHandler))
-                    {
-                        LoggerManager.record(LoggerType.ERROR, "after init failed, key is" + key);
-                    }
+                    LoggerManager.record(LoggerType.ERROR, "before init failed, key is" + key);
                 }
 
-                semaphoreMap.remove(key);
+                super.get(key).add(iHandler);
+                if (iAfterInit != null && iAfterInit.afterInit((T) iHandler))
+                {
+                    LoggerManager.record(LoggerType.ERROR, "after init failed, key is" + key);
+                }
             }
-            return null;
+
+            super.remove(key);
         }
         catch (InterruptedException e)
         {
@@ -132,7 +128,8 @@ public class ListLazyHashMap<T> extends HashMap<String,List<ConfigValueGet>>
         {
             semaphore.release();
         }
-        return null;
+
+        return super.get(key);
     }
 
 }
