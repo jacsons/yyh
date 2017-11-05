@@ -32,7 +32,13 @@ public class ListLazyHashMap<T> extends HashMap<String,List<T>>
      */
     private IAfterInit<T> iAfterInit;
 
+    /**
+     *
+     */
     private IBeforeInit<T> iBeforeInit;
+
+
+    Map<String,Object> def;
 
     /**
      * 存放的处理类
@@ -44,10 +50,11 @@ public class ListLazyHashMap<T> extends HashMap<String,List<T>>
      * @param iBeforeInit
      * @param iAfterInit
      */
-    public ListLazyHashMap(IBeforeInit<T> iBeforeInit, IAfterInit<T> iAfterInit)
+    public ListLazyHashMap(Map<String,Object> def, IBeforeInit<T> iBeforeInit, IAfterInit<T> iAfterInit)
     {
         this.iBeforeInit = iBeforeInit;
         this.iAfterInit = iAfterInit;
+        this.def = def;
     }
 
     /**
@@ -77,7 +84,7 @@ public class ListLazyHashMap<T> extends HashMap<String,List<T>>
      * @param key
      * @return
      */
-    public List<T> get(Map<String,Object> def, String key)
+    public List<T> get(String key)
     {
         if (StringUtils.isEmpty(key))
         {
